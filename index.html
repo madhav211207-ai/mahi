@@ -31,32 +31,11 @@ background:#000000cc;
 z-index:10;
 }
 
-/* floating hearts */
+/* neon title */
 
-.heart{
-position:fixed;
-font-size:20px;
-color:pink;
-animation:float 8s linear infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(100vh)}
-100%{transform:translateY(-10vh)}
-}
-
-/* falling roses */
-
-.rose{
-position:fixed;
-font-size:24px;
-top:-40px;
-animation:fall 10s linear infinite;
-}
-
-@keyframes fall{
-0%{transform:translateY(-10vh)}
-100%{transform:translateY(110vh)}
+h1{
+font-size:45px;
+text-shadow:0 0 10px white,0 0 20px pink,0 0 40px red;
 }
 
 /* page */
@@ -74,18 +53,11 @@ display:block;
 
 .card{
 background:rgba(255,255,255,0.2);
-backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
 border-radius:20px;
 padding:30px;
 max-width:600px;
 margin:auto;
-}
-
-/* neon title */
-
-h1{
-font-size:45px;
-text-shadow:0 0 10px white,0 0 20px pink,0 0 40px red;
 }
 
 /* buttons */
@@ -105,8 +77,34 @@ color:#ff007f;
 
 #poetry{
 white-space:pre-line;
-font-size:18px;
 line-height:1.7;
+}
+
+/* floating hearts */
+
+.heart{
+position:fixed;
+font-size:20px;
+animation:float 8s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh)}
+100%{transform:translateY(-10vh)}
+}
+
+/* falling roses */
+
+.rose{
+position:fixed;
+top:-40px;
+font-size:24px;
+animation:fall 10s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh)}
+100%{transform:translateY(110vh)}
 }
 
 </style>
@@ -115,6 +113,8 @@ line-height:1.7;
 <body>
 
 <div id="intro">Shambhavi is typing...</div>
+
+<!-- PAGE 1 -->
 
 <div class="page active" id="page1">
 <div class="card">
@@ -129,10 +129,12 @@ line-height:1.7;
 
 <br><br>
 
-<button onclick="startMusic()">🎵 Start Music</button>
+<button onclick="music()">🎵 Start Music</button>
 
 </div>
 </div>
+
+<!-- PAGE 2 -->
 
 <div class="page" id="page2">
 <div class="card">
@@ -141,16 +143,81 @@ line-height:1.7;
 
 <p id="poetry"></p>
 
+<button onclick="nextPage(3)">Next</button>
+
 </div>
 </div>
 
-<audio id="music" loop>
+<!-- PAGE 3 -->
+
+<div class="page" id="page3">
+<div class="card">
+
+<h2>You're ugly if you pick the wrong flower 😭</h2>
+
+<button onclick="flower()">🌹</button>
+<button onclick="flower()">🌷</button>
+<button onclick="flower()">🥀</button>
+
+<p id="flowerText"></p>
+
+<button onclick="nextPage(4)">I AGREE</button>
+
+</div>
+</div>
+
+<!-- PAGE 4 -->
+
+<div class="page" id="page4">
+<div class="card">
+
+<p>
+Mene koi aisa option dala hi nahi tha jo galat ho 😭🤌🏻<br><br>
+Kyuki tum ugly ho hi nahi sakti.<br><br>
+Tumhe makeup ki koi zarurat nahi.<br><br>
+Bas smile karte raha karo 😊
+</p>
+
+<button onclick="nextPage(5)">Next</button>
+
+</div>
+</div>
+
+<!-- PAGE 5 -->
+
+<div class="page" id="page5">
+<div class="card">
+
+<h2>Click next to know why I am best for you 😏</h2>
+
+<button onclick="nextPage(6)">Next</button>
+
+<button onclick="end()">Not interested</button>
+
+</div>
+</div>
+
+<!-- PAGE 6 -->
+
+<div class="page" id="page6">
+<div class="card">
+
+<h1>😏😏😏</h1>
+
+<h2>Because meh ladka hu 😭</h2>
+
+<p>( JUST KIDDING )</p>
+
+</div>
+</div>
+
+<audio id="song" loop>
 <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_3d2bfb8e6c.mp3">
 </audio>
 
 <script>
 
-/* intro */
+/* intro disappear */
 
 setTimeout(()=>{
 document.getElementById("intro").style.display="none";
@@ -167,7 +234,7 @@ h.style.animationDuration=5+Math.random()*5+"s";
 document.body.appendChild(h);
 }
 
-/* roses */
+/* falling roses */
 
 for(let i=0;i<15;i++){
 let r=document.createElement("div");
@@ -206,15 +273,19 @@ setTimeout(()=>e.remove(),1000);
 /* eyes click */
 
 function eyes(){
-
 explode();
-
 setTimeout(()=>{
-document.getElementById("page1").classList.remove("active");
-document.getElementById("page2").classList.add("active");
+nextPage(2);
 typePoetry();
-},700);
+},600);
+}
 
+/* page switch */
+
+function nextPage(n){
+let pages=document.querySelectorAll(".page");
+pages.forEach(p=>p.classList.remove("active"));
+document.getElementById("page"+n).classList.add("active");
 }
 
 /* typing poetry */
@@ -250,10 +321,22 @@ if(i>=text.length) clearInterval(interval);
 
 }
 
+/* flower message */
+
+function flower(){
+document.getElementById("flowerText").innerText="I know you are pretty ❤️";
+}
+
 /* music */
 
-function startMusic(){
-document.getElementById("music").play();
+function music(){
+document.getElementById("song").play();
+}
+
+/* end */
+
+function end(){
+document.body.innerHTML="<h1>Okay bye 😭</h1>";
 }
 
 </script>

@@ -15,8 +15,6 @@ text-align:center;
 overflow:hidden;
 }
 
-/* intro screen */
-
 #intro{
 position:fixed;
 top:0;
@@ -31,14 +29,10 @@ background:#000000cc;
 z-index:10;
 }
 
-/* neon title */
-
 h1{
 font-size:45px;
 text-shadow:0 0 10px white,0 0 20px pink,0 0 40px red;
 }
-
-/* page */
 
 .page{
 display:none;
@@ -49,8 +43,6 @@ padding:40px;
 display:block;
 }
 
-/* glass card */
-
 .card{
 background:rgba(255,255,255,0.2);
 backdrop-filter:blur(12px);
@@ -59,8 +51,6 @@ padding:30px;
 max-width:600px;
 margin:auto;
 }
-
-/* buttons */
 
 button{
 padding:14px 25px;
@@ -73,14 +63,10 @@ background:white;
 color:#ff007f;
 }
 
-/* poetry */
-
 #poetry{
 white-space:pre-line;
 line-height:1.7;
 }
-
-/* floating hearts */
 
 .heart{
 position:fixed;
@@ -92,8 +78,6 @@ animation:float 8s linear infinite;
 0%{transform:translateY(100vh)}
 100%{transform:translateY(-10vh)}
 }
-
-/* falling roses */
 
 .rose{
 position:fixed;
@@ -125,11 +109,7 @@ animation:fall 10s linear infinite;
 
 <button onclick="eyes()">Your eyes with kajal 👀</button>
 
-<button id="lipBtn" onclick="shrink()">Lip gloss on your lips 💄</button>
-
-<br><br>
-
-<button onclick="music()">🎵 Start Music</button>
+<button id="lipBtn">Lip gloss on your lips 💄</button>
 
 </div>
 </div>
@@ -211,13 +191,9 @@ Bas smile karte raha karo 😊
 </div>
 </div>
 
-<audio id="song" loop>
-<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_3d2bfb8e6c.mp3">
-</audio>
-
 <script>
 
-/* intro disappear */
+/* intro */
 
 setTimeout(()=>{
 document.getElementById("intro").style.display="none";
@@ -245,13 +221,22 @@ r.style.animationDuration=6+Math.random()*6+"s";
 document.body.appendChild(r);
 }
 
-/* shrinking button */
+/* runaway button */
 
-let size=18;
+let lipBtn=document.getElementById("lipBtn");
 
-function shrink(){
-size-=2;
-document.getElementById("lipBtn").style.fontSize=size+"px";
+lipBtn.addEventListener("mouseover",moveButton);
+lipBtn.addEventListener("touchstart",moveButton);
+
+function moveButton(){
+
+let x=Math.random()*(window.innerWidth-120);
+let y=Math.random()*(window.innerHeight-60);
+
+lipBtn.style.position="absolute";
+lipBtn.style.left=x+"px";
+lipBtn.style.top=y+"px";
+
 }
 
 /* heart explosion */
@@ -321,19 +306,9 @@ if(i>=text.length) clearInterval(interval);
 
 }
 
-/* flower message */
-
 function flower(){
 document.getElementById("flowerText").innerText="I know you are pretty ❤️";
 }
-
-/* music */
-
-function music(){
-document.getElementById("song").play();
-}
-
-/* end */
 
 function end(){
 document.body.innerHTML="<h1>Okay bye 😭</h1>";
